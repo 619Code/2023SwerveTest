@@ -7,6 +7,7 @@ import edu.wpi.first.math.util.Units;
 
 public final class Constants {
     public static final class ModuleConstants {
+        // these constants should be correct for the current 4ki module we are using 
         public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
         public static final double kDriveMotorGearRatio = 1/6.75;
         public static final double kTurningMotorGearRatio = 1/21.0;
@@ -17,15 +18,18 @@ public final class Constants {
 
 
         // We may need to tune this for the PID turning
+        // we may need to tune it so this is not set in stone
         public static final double kPTurning = 0.5;
     }
 
     public static final class DriveConstants {
 
         // we need to update this
+        //thse seem to be based off of the base dimensions
         public static final double kTrackWidth = 0.5969; 
         public static final double kWheelBase = 0.5969;
 
+        //This should be relative to the center, but still check documentation about how the grid is set up for swerve kinetics
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2), //front left
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2), //front right
@@ -42,6 +46,7 @@ public final class Constants {
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = true;
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -106.5;
 
+        //we need to updats these motors
         // frontRight Module
         public static final int kFrontRightDriveMotorPort = 2;
         public static final int kFrontRightTurningMotorPort = 1;
@@ -51,6 +56,7 @@ public final class Constants {
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = true;
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -128;
 
+        //we need to update these motors
         // backLeft Module
         public static final int kBackLeftDriveMotorPort = 8;
         public static final int kBackLeftTurningMotorPort = 7;
@@ -60,6 +66,7 @@ public final class Constants {
         public static final boolean kBackLeftDriveAbsoluteEncoderReversed = true;
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -3;
 
+        //we need to update these motors
         // backRight Module
         public static final int kBackRightDriveMotorPort = 6;
         public static final int kBackRightTurningMotorPort = 5;
@@ -70,10 +77,14 @@ public final class Constants {
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -64;
 
         
-        
+        //NOTE: these are not used in actual code they are just used to define max  based on physical contraints
+        //If you want to ignore these then change the limit on the max speeds manually 
+        //these seem to be mostly fine but we may need change some things
+        // also we need to change the physical dimensions of our base if we are going to use this 
         public static final double kPhysicalMaxSpeedMetersPerSecond = 6380.0 / 60.0 * (ModuleConstants.kDriveMotorGearRatio) * ModuleConstants.kWheelDiameterMeters * Math.PI * 2;
         public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = kPhysicalMaxSpeedMetersPerSecond / Math.hypot(DriveConstants.kTrackWidth / 2.0, DriveConstants.kWheelBase / 2.0 * 3);
 
+        //These are the variables that determine the max speeds of our swerve drive
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
         
@@ -81,6 +92,7 @@ public final class Constants {
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
     }
 
+    //these we can ignore for now since they are only for autonmous 
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
         public static final double kMaxAngularSpeedRadiansPerSecond = DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
@@ -97,6 +109,7 @@ public final class Constants {
                         kMaxAngularAccelerationRadiansPerSecondSquared);
     }
 
+    //this is just to set a deadzone so we don't need to move the stick
     public static final class OIConstants {
         public static final double kDeadband = 0.05;
     }
