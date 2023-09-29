@@ -24,60 +24,61 @@ public final class Constants {
 
     public static final class DriveConstants {
 
-        // we need to update this
+        // we need to update this // no longer needs to be updated: I measured from center of axle to center of axle
         //thse seem to be based off of the base dimensions
-        public static final double kTrackWidth = 0.5969; 
-        public static final double kWheelBase = 0.5969;
+        public static final double kTrackWidth = Units.inchesToMeters(21); 
+        public static final double kWheelBase = Units.inchesToMeters(21);
 
         //This should be relative to the center, but still check documentation about how the grid is set up for swerve kinetics
+            //Ive changed it. It looked wrong and I fixed it based on the coordinate system at https://hhs-team670.github.io/MustangLib/frc/team670/robot/utils/math/Translation2d.html
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2), //front left
-                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2), //front right
-                new Translation2d(kWheelBase / 2, kTrackWidth / 2), //back left
+                new Translation2d(kWheelBase / 2, kTrackWidth / 2), //front right
+                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2), //back left
                 new Translation2d(kWheelBase / 2, -kTrackWidth / 2)); //backright
 
         //We need to update these motors
         // frontLeft Module
-        public static final int kFrontLeftDriveMotorPort = 4;
-        public static final int kFrontLeftTurningMotorPort = 3;
-        public static final boolean kFrontLeftDriveMotorReversed = false;
-        public static final boolean kFrontLeftTurningMotorReversed = true;
-        public static final int kFrontLeftDriveAbsoluteEncoderPort = 3;
-        public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = true;
+        public static final int kFrontLeftDriveMotorPort = 57; //motors updated
+        public static final int kFrontLeftTurningMotorPort = 56; //motors updated
+        public static final boolean kFrontLeftDriveMotorReversed = false; //updated
+        public static final boolean kFrontLeftTurningMotorReversed = true; //updated
+        public static final int kFrontLeftDriveAbsoluteEncoderPort = 30; //updated
+        public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false; //updated
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -106.5;
 
         //we need to updats these motors
         // frontRight Module
-        public static final int kFrontRightDriveMotorPort = 2;
-        public static final int kFrontRightTurningMotorPort = 1;
-        public static final boolean kFrontRightDriveMotorReversed = false;
-        public static final boolean kFrontRightTurningMotorReversed = true;
-        public static final int kFrontRightDriveAbsoluteEncoderPort = 1;
-        public static final boolean kFrontRightDriveAbsoluteEncoderReversed = true;
+        public static final int kFrontRightDriveMotorPort = 51; //motors updated
+        public static final int kFrontRightTurningMotorPort = 50; //motors updated
+        public static final boolean kFrontRightDriveMotorReversed = true; //updated
+        public static final boolean kFrontRightTurningMotorReversed = true; //updated
+        public static final int kFrontRightDriveAbsoluteEncoderPort = 31; //updated
+        public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false; //updated
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -128;
 
         //we need to update these motors
         // backLeft Module
-        public static final int kBackLeftDriveMotorPort = 8;
-        public static final int kBackLeftTurningMotorPort = 7;
-        public static final boolean kBackLeftDriveMotorReversed = true;
-        public static final boolean kBackLeftTurningMotorReversed = true;
-        public static final int kBackLeftDriveAbsoluteEncoderPort = 7;
-        public static final boolean kBackLeftDriveAbsoluteEncoderReversed = true;
+        public static final int kBackLeftDriveMotorPort = 55; //motors updated
+        public static final int kBackLeftTurningMotorPort = 54; //motors updated
+        public static final boolean kBackLeftDriveMotorReversed = false; //updated
+        public static final boolean kBackLeftTurningMotorReversed = true; //updated
+        public static final int kBackLeftDriveAbsoluteEncoderPort = 33; //updated
+        public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false; //updated
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -3;
 
         //we need to update these motors
         // backRight Module
-        public static final int kBackRightDriveMotorPort = 6;
-        public static final int kBackRightTurningMotorPort = 5;
-        public static final boolean kBackRightDriveMotorReversed = true;
-        public static final boolean kBackRightTurningMotorReversed = true;
-        public static final int kBackRightDriveAbsoluteEncoderPort = 5;
-        public static final boolean kBackRightDriveAbsoluteEncoderReversed = true;
+        public static final int kBackRightDriveMotorPort = 52; //motors updated
+        public static final int kBackRightTurningMotorPort = 53; //motors updated
+        public static final boolean kBackRightDriveMotorReversed = true; //updated
+        public static final boolean kBackRightTurningMotorReversed = true; //updated
+        public static final int kBackRightDriveAbsoluteEncoderPort = 32; //updated
+        public static final boolean kBackRightDriveAbsoluteEncoderReversed = false; //updated
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -64;
 
         
-        //NOTE: these are not used in actual code they are just used to define max  based on physical contraints
+        //NOTE: these are not used in actual code they are just used to define max based on physical contraints
         //If you want to ignore these then change the limit on the max speeds manually 
         //these seem to be mostly fine but we may need change some things
         // also we need to change the physical dimensions of our base if we are going to use this 
