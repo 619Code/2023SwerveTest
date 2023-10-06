@@ -45,7 +45,7 @@ public final class Constants {
         public static final boolean kFrontLeftTurningMotorReversed = true; //updated
         public static final int kFrontLeftDriveAbsoluteEncoderPort = 30; //updated
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -106.5;
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.134033; //updated, in radians // they want this to be the negative of the reported values?
 
         //we need to updats these motors
         // frontRight Module
@@ -55,7 +55,7 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = true; //updated
         public static final int kFrontRightDriveAbsoluteEncoderPort = 31; //updated
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -128;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.279297; //updated, in radians
 
         //we need to update these motors
         // backLeft Module
@@ -65,7 +65,7 @@ public final class Constants {
         public static final boolean kBackLeftTurningMotorReversed = true; //updated
         public static final int kBackLeftDriveAbsoluteEncoderPort = 33; //updated
         public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -3;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.029297; //updated, in radians
 
         //we need to update these motors
         // backRight Module
@@ -75,7 +75,7 @@ public final class Constants {
         public static final boolean kBackRightTurningMotorReversed = true; //updated
         public static final int kBackRightDriveAbsoluteEncoderPort = 32; //updated
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -64;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.607910; //updated, in radians
 
         
         //NOTE: these are not used in actual code they are just used to define max based on physical contraints
