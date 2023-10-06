@@ -34,7 +34,7 @@ public class SwerveCommand extends CommandBase {
         double ySpeed = controller.getLeftX() * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
         ySpeed = Math.abs(ySpeed) > OIConstants.kDeadband ? ySpeed : 0.0;
         
-        double turningSpeed = controller.getRightX() * DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
+        double turningSpeed = controller.getRightX() * DriveConstants.kTeleDriveMaxAngularSpeedDegreesPerSecond;
         turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
         
         ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, Rotation2d.fromDegrees(swerveSubsystem.getHeading()));

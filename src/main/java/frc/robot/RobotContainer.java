@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.SwerveCommand;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class RobotContainer {
 
@@ -13,6 +15,7 @@ public class RobotContainer {
     public RobotContainer() {
         swerveSubsystem.setDefaultCommand(new SwerveCommand(swerveSubsystem, driverOne));
         configureButtonBindings();
+        // System.out.println(DriveConstants.kTeleDriveMaxSpeedMetersPerSecond);
     }
 
     private void configureButtonBindings() {
