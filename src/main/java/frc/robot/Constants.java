@@ -12,12 +12,13 @@ public final class Constants {
         public static final double kDriveMotorGearRatio = 1/6.75;
         public static final double kTurningMotorGearRatio = 1/21.0;
         public static final double kDriveEncoderRot2Meter = kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
-        public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
+        public static final double kTurningEncoderRot2Deg = kTurningMotorGearRatio * 360;
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-        public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
+        public static final double kTurningEncoderRPM2DegPerSec = kTurningEncoderRot2Deg / 60;
 
 
         // We may need to tune this for the PID turning
+        
         // we may need to tune it so this is not set in stone
         public static final double kPTurning = 0.5;
     }
@@ -45,7 +46,7 @@ public final class Constants {
         public static final boolean kFrontLeftTurningMotorReversed = true; //updated
         public static final int kFrontLeftDriveAbsoluteEncoderPort = 30; //updated
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.134033; //updated, in radians // they want this to be the negative of the reported values?
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.134033; //updated, in degrees // they want this to be the negative of the reported values?
 
         //we need to updats these motors
         // frontRight Module
@@ -55,7 +56,7 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = true; //updated
         public static final int kFrontRightDriveAbsoluteEncoderPort = 31; //updated
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.279297; //updated, in radians
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.279297; //updated, in degrees
 
         //we need to update these motors
         // backLeft Module
@@ -65,7 +66,7 @@ public final class Constants {
         public static final boolean kBackLeftTurningMotorReversed = true; //updated
         public static final int kBackLeftDriveAbsoluteEncoderPort = 33; //updated
         public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.029297; //updated, in radians
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.029297; //updated, in degrees
 
         //we need to update these motors
         // backRight Module
@@ -75,19 +76,19 @@ public final class Constants {
         public static final boolean kBackRightTurningMotorReversed = true; //updated
         public static final int kBackRightDriveAbsoluteEncoderPort = 32; //updated
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -2.0 * Math.PI * 0.607910; //updated, in radians
+        public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.607910; //updated, in degrees
 
         
         //NOTE: these are not used in actual code they are just used to define max based on physical contraints
         //If you want to ignore these then change the limit on the max speeds manually 
         //these seem to be mostly fine but we may need change some things
         // also we need to change the physical dimensions of our base if we are going to use this 
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 6380.0 / 60.0 * (ModuleConstants.kDriveMotorGearRatio) * ModuleConstants.kWheelDiameterMeters * Math.PI * 2;
-        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = kPhysicalMaxSpeedMetersPerSecond / Math.hypot(DriveConstants.kTrackWidth / 2.0, DriveConstants.kWheelBase / 2.0 * 3);
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 6380.0 / 60.0 * (ModuleConstants.kDriveMotorGearRatio) * ModuleConstants.kWheelDiameterMeters * 360;
+        public static final double kPhysicalMaxAngularSpeedDegreesPerSecond = kPhysicalMaxSpeedMetersPerSecond / Math.hypot(DriveConstants.kTrackWidth / 2.0, DriveConstants.kWheelBase / 2.0 * 3);
 
         //These are the variables that determine the max speeds of our swerve drive
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
-        public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
+        public static final double kTeleDriveMaxAngularSpeedDegreesPerSecond = kPhysicalMaxAngularSpeedDegreesPerSecond / 4;
         
         public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
@@ -96,18 +97,18 @@ public final class Constants {
     //these we can ignore for now since they are only for autonmous 
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
-        public static final double kMaxAngularSpeedRadiansPerSecond = DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
+        public static final double kMaxAngularSpeedDegreesPerSecond = DriveConstants.kPhysicalMaxAngularSpeedDegreesPerSecond / 10;
         
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-        public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4;
+        public static final double kMaxAngularAccelerationDegreesPerSecondSquared = 45.0;
         public static final double kPXController = 1.5;
         public static final double kPYController = 1.5;
         public static final double kPThetaController = 3;
 
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
                 new TrapezoidProfile.Constraints(
-                        kMaxAngularSpeedRadiansPerSecond,
-                        kMaxAngularAccelerationRadiansPerSecondSquared);
+                        kMaxAngularSpeedDegreesPerSecond,
+                        kMaxAngularAccelerationDegreesPerSecondSquared);
     }
 
     //this is just to set a deadzone so we don't need to move the stick
