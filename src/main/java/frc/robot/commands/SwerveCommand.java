@@ -28,17 +28,18 @@ public class SwerveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        double xSpeed = -controller.getLeftY() * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
-        xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;
+        //this.swerveSubsystem.getpo
+        // double xSpeed = -controller.getLeftY() * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
+        // xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;
 
-        double ySpeed = controller.getLeftX() * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
-        ySpeed = Math.abs(ySpeed) > OIConstants.kDeadband ? ySpeed : 0.0;
+        // double ySpeed = controller.getLeftX() * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
+        // ySpeed = Math.abs(ySpeed) > OIConstants.kDeadband ? ySpeed : 0.0;
         
-        double turningSpeed = controller.getRightX() * DriveConstants.kTeleDriveMaxAngularSpeedDegreesPerSecond;
-        turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
+        // double turningSpeed = controller.getRightX() * DriveConstants.kTeleDriveMaxAngularSpeedDegreesPerSecond;
+        // turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
         
-        ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, Rotation2d.fromDegrees(swerveSubsystem.getHeading()));
-        swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
+        // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, Rotation2d.fromDegrees(swerveSubsystem.getHeading()));
+        // swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
     }
 
     @Override

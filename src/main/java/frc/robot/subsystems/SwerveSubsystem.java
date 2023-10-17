@@ -95,16 +95,16 @@ public class SwerveSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        odometer.update(getRotation2d(), new SwerveModulePosition[] {
-            frontLeft.getPosition(), frontRight.getPosition(),
-            backLeft.getPosition(), backRight.getPosition()
-          });
-        SmartDashboard.putNumber("Robot Heading", getHeading());
+        // odometer.update(getRotation2d(), new SwerveModulePosition[] {
+        //     frontLeft.getPosition(), frontRight.getPosition(),
+        //     backLeft.getPosition(), backRight.getPosition()
+        //   });
+        //SmartDashboard.putNumber("Robot Heading", getHeading());
         SmartDashboard.putNumber("Front Left Wheel Angle", frontLeft.getAbsoluteEncoderDeg());
-        SmartDashboard.putNumber("Front Right Wheel Angle", frontRight.getAbsoluteEncoderDeg());
-        SmartDashboard.putNumber("Back Left Wheel Angle", backLeft.getAbsoluteEncoderDeg());
-        SmartDashboard.putNumber("Back Right Wheel Angle", backRight.getAbsoluteEncoderDeg());
-        SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+        // SmartDashboard.putNumber("Front Right Wheel Angle", frontRight.getAbsoluteEncoderDeg());
+        // SmartDashboard.putNumber("Back Left Wheel Angle", backLeft.getAbsoluteEncoderDeg());
+        // SmartDashboard.putNumber("Back Right Wheel Angle", backRight.getAbsoluteEncoderDeg());
+        //SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     }
 
     public void stopModules() {
