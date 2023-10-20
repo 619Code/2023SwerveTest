@@ -12,8 +12,12 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants.ModuleConstants;
 
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.CANCoder; //BAD CRINGE
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
+import com.ctre.phoenixpro.configs.CANcoderConfiguration;
+import com.ctre.phoenixpro.hardware.CANcoder;
+import com.ctre.phoenixpro.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenixpro.signals.SensorDirectionValue;
 
 public class SwerveModule {
     public final CANSparkMax driveMotor;
@@ -24,21 +28,22 @@ public class SwerveModule {
 
     private final PIDController turningPidController;
 
-    private final CANCoder absoluteEncoder;
+    private final CANcoder absoluteEncoder;
     private final double absoluteEncoderOffset;
 
     private final String ModuleName;
 
     public SwerveModule(String ModuleName, int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed,
-            int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed) {
+            int absoluteEncoderId, double absoluteEncoderOffset, SensorDirectionValue positiveDirection) {
 
         this.ModuleName = ModuleName;
-        absoluteEncoder = new CANCoder(absoluteEncoderId);
-        CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
-        canCoderConfiguration.magnetOffsetDegrees = absoluteEncoderOffset;
-        canCoderConfiguration.sensorDirection = absoluteEncoderReversed;
-        canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Signed_PlusMinus180;
-        absoluteEncoder.configAllSettings(canCoderConfiguration);
+        absoluteEncoder = new CANcoder(absoluteEncoderId);
+        CANcoderConfiguration canCoderConfiguration = new CANcoderConfiguration();
+        canCoderConfiguration.MagnetSensor.MagnetOffset = absoluteEncoderOffset;
+        canCoderConfiguration.MagnetSensor.SensorDirection = positiveDirection;
+        canCoderConfiguration.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
+        //absoluteEncoder.configAllSettings(canCoderConfiguration);
+        absoluteEncoder.getConfigurator().apply(canCoderConfiguration);
 
         this.absoluteEncoderOffset = absoluteEncoderOffset;
 
@@ -78,7 +83,7 @@ public class SwerveModule {
     }
 
     public double getAbsoluteEncoderDeg() {
-        return absoluteEncoder.getAbsolutePosition();
+        return absoluteEncoder.getAbsolutePosition().getValue();
     }
 
     public void resetEncoders() {

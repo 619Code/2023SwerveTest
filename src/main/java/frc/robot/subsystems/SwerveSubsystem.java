@@ -32,7 +32,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontLeftTurningMotorReversed,
             DriveConstants.kFrontLeftDriveAbsoluteEncoderPort,
             DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetDeg,
-            DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
+            DriveConstants.kFrontLeftTurningForwardDirection);
 
         frontRight = new SwerveModule(
             "Front Right",
@@ -42,7 +42,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontRightTurningMotorReversed,
             DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
             DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetDeg,
-            DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
+            DriveConstants.kFrontRightTurningForwardDirection);
 
         backLeft = new SwerveModule(
             "Back Left",
@@ -52,7 +52,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackLeftTurningMotorReversed,
             DriveConstants.kBackLeftDriveAbsoluteEncoderPort,
             DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetDeg,
-            DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
+            DriveConstants.kBackLeftTurningForwardDirection);
 
         backRight = new SwerveModule(
             "Back Right",
@@ -62,7 +62,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackRightTurningMotorReversed,
             DriveConstants.kBackRightDriveAbsoluteEncoderPort,
             DriveConstants.kBackRightDriveAbsoluteEncoderOffsetDeg,
-            DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
+            DriveConstants.kBackRightTurningForwardDirection);
 
         odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getRotation2d(), new SwerveModulePosition[] {
             frontLeft.getPosition(), frontRight.getPosition(), backLeft.getPosition(), backRight.getPosition()});

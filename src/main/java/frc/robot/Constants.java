@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.ctre.phoenixpro.signals.SensorDirectionValue;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -47,6 +49,7 @@ public final class Constants {
         public static final int kFrontLeftDriveAbsoluteEncoderPort = 30; //updated
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false; //updated
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.134033; //updated, in degrees // they want this to be the negative of the reported values?
+        public static final SensorDirectionValue kFrontLeftTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         //we need to updats these motors
         // frontRight Module
@@ -57,6 +60,7 @@ public final class Constants {
         public static final int kFrontRightDriveAbsoluteEncoderPort = 31; //updated
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false; //updated
         public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.279297; //updated, in degrees
+        public static final SensorDirectionValue kFrontRightTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         //we need to update these motors
         // backLeft Module
@@ -67,6 +71,7 @@ public final class Constants {
         public static final int kBackLeftDriveAbsoluteEncoderPort = 33; //updated
         public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false; //updated
         public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.029297; //updated, in degrees
+        public static final SensorDirectionValue kBackLeftTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         //we need to update these motors
         // backRight Module
@@ -77,6 +82,7 @@ public final class Constants {
         public static final int kBackRightDriveAbsoluteEncoderPort = 32; //updated
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = false; //updated
         public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.607910; //updated, in degrees
+        public static final SensorDirectionValue kBackRightTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         
         //NOTE: these are not used in actual code they are just used to define max based on physical contraints
