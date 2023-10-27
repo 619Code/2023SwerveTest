@@ -121,4 +121,8 @@ public class SwerveSubsystem extends SubsystemBase {
         backLeft.setDesiredState(desiredStates[2]);
         backRight.setDesiredState(desiredStates[3]);
     }
+
+    public SwerveModuleState[] getModuleStates() {
+        return new SwerveModuleState[] {frontLeft.getState(), frontLeft.getState(), backLeft.getState(), backRight.getState()};
+    }
 }

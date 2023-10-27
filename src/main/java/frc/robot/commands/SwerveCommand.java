@@ -5,6 +5,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
@@ -40,6 +41,11 @@ public class SwerveCommand extends CommandBase {
         
         // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, Rotation2d.fromDegrees(swerveSubsystem.getHeading()));
         // swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
+        this.swerveSubsystem.setModuleStates(new SwerveModuleState[] {new SwerveModuleState(.5, new Rotation2d(.1)), new SwerveModuleState(.5, new Rotation2d(.1)), new SwerveModuleState(.5, new Rotation2d(.1)), new SwerveModuleState(.5, new Rotation2d(.1))});
+        for (int i = 0; i < this.swerveSubsystem.getModuleStates().length; i ++) {
+            System.out.print(this.swerveSubsystem.getModuleStates()[i] + ",  " );
+        }
+        System.out.print("\n");
     }
 
     @Override
