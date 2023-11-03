@@ -83,7 +83,9 @@ public class SwerveModule {
     }
 
     public double getAbsoluteEncoderDeg() {
-        return absoluteEncoder.getAbsolutePosition().getValue();
+        return (absoluteEncoder.getAbsolutePosition().getValue() * 360);// - absoluteEncoderOffset;
+
+        //should be in degrees???
     }
 
     public void resetEncoders() {
@@ -111,5 +113,9 @@ public class SwerveModule {
     public void stop() {
         driveMotor.set(0);
         turningMotor.set(0);
+    }
+
+    public CANcoder getCANcoder() {
+        return this.absoluteEncoder;
     }
 }

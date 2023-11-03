@@ -42,46 +42,50 @@ public final class Constants {
 
         //We need to update these motors
         // frontLeft Module
+        // offsets should be drawn from no offest vaule on x tuner
         public static final int kFrontLeftDriveMotorPort = 57; //motors updated
         public static final int kFrontLeftTurningMotorPort = 56; //motors updated
         public static final boolean kFrontLeftDriveMotorReversed = false; //updated
         public static final boolean kFrontLeftTurningMotorReversed = true; //updated
         public static final int kFrontLeftDriveAbsoluteEncoderPort = 30; //updated
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.134033; //updated, in degrees // they want this to be the negative of the reported values?
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = -0.134521; //updated, in degrees // they want this to be the negative of the reported values?
         public static final SensorDirectionValue kFrontLeftTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         //we need to updats these motors
         // frontRight Module
+        // offset -0.266357
         public static final int kFrontRightDriveMotorPort = 51; //motors updated
         public static final int kFrontRightTurningMotorPort = 50; //motors updated
         public static final boolean kFrontRightDriveMotorReversed = true; //updated
         public static final boolean kFrontRightTurningMotorReversed = true; //updated
         public static final int kFrontRightDriveAbsoluteEncoderPort = 31; //updated
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.279297; //updated, in degrees
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = 360.0 * -0.266357; //updated, in degrees
         public static final SensorDirectionValue kFrontRightTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         //we need to update these motors
         // backLeft Module
+        // offset -0.480713
         public static final int kBackLeftDriveMotorPort = 55; //motors updated
         public static final int kBackLeftTurningMotorPort = 54; //motors updated
         public static final boolean kBackLeftDriveMotorReversed = false; //updated
         public static final boolean kBackLeftTurningMotorReversed = true; //updated
         public static final int kBackLeftDriveAbsoluteEncoderPort = 33; //updated
         public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.029297; //updated, in degrees
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = 360.0 * -0.480713; //updated, in degrees
         public static final SensorDirectionValue kBackLeftTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         //we need to update these motors
         // backRight Module
+        //0.480957
         public static final int kBackRightDriveMotorPort = 52; //motors updated
         public static final int kBackRightTurningMotorPort = 53; //motors updated
         public static final boolean kBackRightDriveMotorReversed = true; //updated
         public static final boolean kBackRightTurningMotorReversed = true; //updated
         public static final int kBackRightDriveAbsoluteEncoderPort = 32; //updated
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = false; //updated
-        public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = -360.0 * 0.607910; //updated, in degrees
+        public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = 360.0 * 0.480957; //updated, in degrees
         public static final SensorDirectionValue kBackRightTurningForwardDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         

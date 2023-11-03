@@ -1,7 +1,9 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenixpro.hardware.CANcoder;
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -16,11 +18,15 @@ public class SwerveCommand extends CommandBase {
 
     private final SwerveSubsystem swerveSubsystem;
     private final XboxController controller;
+    private CANcoder FrontLeftCoder;
+    private CANSparkMax FrontLeftTurnSpark;
 
     public SwerveCommand(SwerveSubsystem swerveSubsystem, XboxController controller) {
         this.swerveSubsystem = swerveSubsystem;
         this.controller = controller;
         addRequirements(swerveSubsystem);
+        this.FrontLeftCoder = swerveSubsystem.frontLeft.getCANcoder();
+        this.FrontLeftTurnSpark = swerveSubsystem.frontLeft.turningMotor;
     }
 
     @Override
@@ -29,6 +35,15 @@ public class SwerveCommand extends CommandBase {
 
     @Override
     public void execute() {
+
+        // :3
+
+        //
+        System.out.println("ANGLE = " + swerveSubsystem.frontLeft.getAbsoluteEncoderDeg() + ", SPEED = " + FrontLeftTurnSpark.get());
+
+        // \:3
+
+        
         //this.swerveSubsystem.getpo
         // double xSpeed = -controller.getLeftY() * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
         // xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;
@@ -41,11 +56,13 @@ public class SwerveCommand extends CommandBase {
         
         // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, Rotation2d.fromDegrees(swerveSubsystem.getHeading()));
         // swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
-        this.swerveSubsystem.setModuleStates(new SwerveModuleState[] {new SwerveModuleState(.5, new Rotation2d(.1)), new SwerveModuleState(.5, new Rotation2d(.1)), new SwerveModuleState(.5, new Rotation2d(.1)), new SwerveModuleState(.5, new Rotation2d(.1))});
-        for (int i = 0; i < this.swerveSubsystem.getModuleStates().length; i ++) {
-            System.out.print(this.swerveSubsystem.getModuleStates()[i] + ",  " );
-        }
-        System.out.print("\n");
+       // this.swerveSubsystem.setModuleStates(new SwerveModuleState[] {new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(.5, new Rotation2d( 0.1))});
+        //for (int i = 0; i < this.swerveSubsystem.getModuleStates().length; i ++) {
+           // System.out.print(this.swerveSubsystem.getModuleStates()[i] + ",  " );
+       // }
+       // System.out.print("\n");
+       // 
+
     }
 
     @Override
