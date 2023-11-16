@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants.ModuleConstants;
+import frc.robot.helpers.Crashboard;
 
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder; //BAD CRINGE
@@ -24,12 +25,13 @@ public class SwerveModule {
     public final CANSparkMax turningMotor;
 
     private final RelativeEncoder driveEncoder;
-    private final RelativeEncoder turningEncoder;
+    //private final RelativeEncoder turningEncoder;
 
     private final PIDController turningPidController;
+    private final PIDController drivePidController; 
+
 
     private final CANcoder absoluteEncoder;
-    private final double absoluteEncoderOffset;
 
     private final String ModuleName;
 
@@ -45,23 +47,23 @@ public class SwerveModule {
         //absoluteEncoder.configAllSettings(canCoderConfiguration);
         absoluteEncoder.getConfigurator().apply(canCoderConfiguration);
 
-        this.absoluteEncoderOffset = absoluteEncoderOffset;
-
         driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
         configureMotor(driveMotor, driveMotorReversed);
         turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
         configureMotor(turningMotor, turningMotorReversed);
 
         driveEncoder = driveMotor.getEncoder();
-        turningEncoder = turningMotor.getEncoder();
+        //turningEncoder = turningMotor.getEncoder();
 
         driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
         driveEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MeterPerSec);
-        turningEncoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Deg);
-        turningEncoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2DegPerSec);
+        //turningEncoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Deg);
+        //turningEncoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2DegPerSec);
  
-        turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
+        turningPidController = new PIDController(ModuleConstants.kPTurning, 0, ModuleConstants.kDTurning);
         turningPidController.enableContinuousInput(-180, 180);
+
+        this.drivePidController = new PIDController(ModuleConstants.kPModuleDriveController, 0, ModuleConstants.kDModuleDriveController);
 
         resetEncoders();
     }
@@ -90,7 +92,7 @@ public class SwerveModule {
 
     public void resetEncoders() {
         driveEncoder.setPosition(0);
-        turningEncoder.setPosition(0);
+        //turningEncoder.setPosition(0);
     }
 
     public SwerveModuleState getState() {
@@ -98,14 +100,27 @@ public class SwerveModule {
     }
 
     public void setDesiredState(SwerveModuleState state) {
+        
         if (Math.abs(state.speedMetersPerSecond) < 0.001) {
             stop();
             return;
         }
         state = SwerveModuleState.optimize(state, getState().angle);
-        double driveSpeed = state.speedMetersPerSecond*0.2;
+        
+        // Calculate the drive output from the drive PID controller.
+        double driveSpeed = this.drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
         driveMotor.set(driveSpeed);
-        double turnSpeed = (turningPidController.calculate(getAbsoluteEncoderDeg(), state.angle.getDegrees()))/20;
+                
+        double turnSpeed = (turningPidController.calculate(getAbsoluteEncoderDeg(), state.angle.getDegrees()));
+        System.out.println("Turn Speed Calculated " + this.ModuleName + ": " + turnSpeed);
+        if (turnSpeed > 0)
+            turnSpeed = Math.min(turnSpeed, .2);
+        else
+            turnSpeed = Math.max(turnSpeed, -.2);
+        
+        System.out.println("Turn Speed Final " + this.ModuleName + ": " + turnSpeed);
+        Crashboard.toDashboard(ModuleName + "Turn Speed Final", turnSpeed, "Swerve");
+
         turningMotor.set(turnSpeed);
         //System.out.println(ModuleName + "- DriveMotorCommand: " + driveSpeed + " - True Angle: " + getAbsoluteEncoderRad() + " AngleSetPoint: " + state.angle.getDegrees() + " AngleMotorCommand: " + turnSpeed);
     }

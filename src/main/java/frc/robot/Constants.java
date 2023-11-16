@@ -22,7 +22,11 @@ public final class Constants {
         // We may need to tune this for the PID turning
         
         // we may need to tune it so this is not set in stone
-        public static final double kPTurning = 0.5;
+        public static final double kPTurning = .01;
+        public static final double kDTurning = 0;
+
+        public static final double kPModuleDriveController = .01;
+        public static final double kDModuleDriveController = 0;
     }
 
     public static final class DriveConstants {
