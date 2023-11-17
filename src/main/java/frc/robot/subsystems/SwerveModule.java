@@ -5,7 +5,10 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -108,15 +111,12 @@ public class SwerveModule {
         state = SwerveModuleState.optimize(state, getState().angle);
         
         // Calculate the drive output from the drive PID controller.
-        double driveSpeed = this.drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
-        if (driveSpeed > .5) {
-            driveSpeed = .5;
-        }
-        else if (driveSpeed < -.5) {
-            driveSpeed = -.5;
-        }
+        double driveSpeed = MathUtil.clamp(state.speedMetersPerSecond / 360, -.5 ,.5);
+  
         driveMotor.set(driveSpeed);
         Crashboard.toDashboard("driveSpeed", driveSpeed, "Swerve");
+        Crashboard.toDashboard("speed in m/s", state.speedMetersPerSecond, "Swerve");
+        
                 
         double turnSpeed = (turningPidController.calculate(getAbsoluteEncoderDeg(), state.angle.getDegrees()));
         System.out.println("Turn Speed Calculated " + this.ModuleName + ": " + turnSpeed);
@@ -139,5 +139,9 @@ public class SwerveModule {
 
     public CANcoder getCANcoder() {
         return this.absoluteEncoder;
+    }
+
+    public void logIt() {
+      Crashboard.toDashboard(ModuleName + " Wheel Angle", this.getAbsoluteEncoderDeg(), "swerve");
     }
 }

@@ -100,7 +100,10 @@ public class SwerveSubsystem extends SubsystemBase {
         //     backLeft.getPosition(), backRight.getPosition()
         //   });
         //SmartDashboard.putNumber("Robot Heading", getHeading());
-        SmartDashboard.putNumber("Front Left Wheel Angle", frontLeft.getAbsoluteEncoderDeg());
+        frontLeft.logIt();
+        frontRight.logIt();
+        backLeft.logIt();
+        backRight.logIt();
         // SmartDashboard.putNumber("Front Right Wheel Angle", frontRight.getAbsoluteEncoderDeg());
         // SmartDashboard.putNumber("Back Left Wheel Angle", backLeft.getAbsoluteEncoderDeg());
         // SmartDashboard.putNumber("Back Right Wheel Angle", backRight.getAbsoluteEncoderDeg());
@@ -117,9 +120,9 @@ public class SwerveSubsystem extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         frontLeft.setDesiredState(desiredStates[0]);
-        // frontRight.setDesiredState(desiredStates[1]);
-        // backLeft.setDesiredState(desiredStates[2]);
-        // backRight.setDesiredState(desiredStates[3]);
+        frontRight.setDesiredState(desiredStates[1]);
+        backLeft.setDesiredState(desiredStates[2]);
+        backRight.setDesiredState(desiredStates[3]);
     }
 
     public SwerveModuleState[] getModuleStates() {
