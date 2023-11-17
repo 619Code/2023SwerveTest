@@ -70,7 +70,7 @@ public class SwerveModule {
 
     private void configureMotor(CANSparkMax motor, Boolean inverted) {
         motor.restoreFactoryDefaults();
-        motor.setIdleMode(IdleMode.kBrake);
+        motor.setIdleMode(IdleMode.kCoast);
         motor.setInverted(inverted);
         motor.setSmartCurrentLimit(30);
         motor.burnFlash();
@@ -109,7 +109,14 @@ public class SwerveModule {
         
         // Calculate the drive output from the drive PID controller.
         double driveSpeed = this.drivePidController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
+        if (driveSpeed > .5) {
+            driveSpeed = .5;
+        }
+        else if (driveSpeed < -.5) {
+            driveSpeed = -.5;
+        }
         driveMotor.set(driveSpeed);
+        Crashboard.toDashboard("driveSpeed", driveSpeed, "Swerve");
                 
         double turnSpeed = (turningPidController.calculate(getAbsoluteEncoderDeg(), state.angle.getDegrees()));
         System.out.println("Turn Speed Calculated " + this.ModuleName + ": " + turnSpeed);

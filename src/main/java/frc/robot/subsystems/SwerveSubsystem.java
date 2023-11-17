@@ -15,7 +15,7 @@ import frc.robot.Constants.DriveConstants;
 public class SwerveSubsystem extends SubsystemBase {
     public static final double MAX_VOLTAGE = 12.0;
     public final SwerveModule frontLeft;
-    public final SwerveModule frontRight;
+    public final SwerveModule frontRight; 
     public final SwerveModule backLeft;
     public final SwerveModule backRight;
 
