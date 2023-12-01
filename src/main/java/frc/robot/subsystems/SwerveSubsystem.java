@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.helpers.Crashboard;
 
 public class SwerveSubsystem extends SubsystemBase {
     public static final double MAX_VOLTAGE = 12.0;
@@ -104,6 +105,7 @@ public class SwerveSubsystem extends SubsystemBase {
         frontRight.logIt();
         backLeft.logIt();
         backRight.logIt();
+        Crashboard.toDashboard("gyro angle", gyro.getAngle(), "navx");
         // SmartDashboard.putNumber("Front Right Wheel Angle", frontRight.getAbsoluteEncoderDeg());
         // SmartDashboard.putNumber("Back Left Wheel Angle", backLeft.getAbsoluteEncoderDeg());
         // SmartDashboard.putNumber("Back Right Wheel Angle", backRight.getAbsoluteEncoderDeg());
