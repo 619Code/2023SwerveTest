@@ -67,6 +67,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
         odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getRotation2d(), new SwerveModulePosition[] {
             frontLeft.getPosition(), frontRight.getPosition(), backLeft.getPosition(), backRight.getPosition()});
+
+        
         
         new Thread(() -> {
             try {
@@ -96,23 +98,24 @@ public class SwerveSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // odometer.update(getRotation2d(), new SwerveModulePosition[] {
-        //     frontLeft.getPosition(), frontRight.getPosition(),
-        //     backLeft.getPosition(), backRight.getPosition()
-        //   });
-        //SmartDashboard.putNumber("Robot Heading", getHeading());
+        odometer.update(getRotation2d(), new SwerveModulePosition[] {
+            frontLeft.getPosition(), frontRight.getPosition(),
+            backLeft.getPosition(), backRight.getPosition()
+        });
+        Crashboard.toDashboard("Robot Heading", getHeading(), "navx");
         frontLeft.logIt();
         frontRight.logIt();
         backLeft.logIt();
         backRight.logIt();
         Crashboard.toDashboard("gyro angle", gyro.getAngle(), "navx");
-        // SmartDashboard.putNumber("Front Right Wheel Angle", frontRight.getAbsoluteEncoderDeg());
-        // SmartDashboard.putNumber("Back Left Wheel Angle", backLeft.getAbsoluteEncoderDeg());
-        // SmartDashboard.putNumber("Back Right Wheel Angle", backRight.getAbsoluteEncoderDeg());
+        //SmartDashboard.putNumber("Front Right Wheel Angle", frontRight.getAbsoluteEncoderDeg());
+        //SmartDashboard.putNumber("Back Left Wheel Angle", backLeft.getAbsoluteEncoderDeg());
+        //SmartDashboard.putNumber("Back Right Wheel Angle", backRight.getAbsoluteEncoderDeg());
         //SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     }
 
     public void stopModules() {
+
         frontLeft.stop();
         frontRight.stop();
         backLeft.stop();

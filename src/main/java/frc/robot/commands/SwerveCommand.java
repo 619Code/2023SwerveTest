@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.helpers.Crashboard;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class SwerveCommand extends CommandBase {
@@ -49,14 +50,19 @@ public class SwerveCommand extends CommandBase {
         double ySpeed = Math.abs(controller.getLeftX()) > OIConstants.kDeadband ? controller.getLeftX() : 0.0;        
         ySpeed = ySpeed * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;        
         
-        double turningSpeed = controller.getRightX() * DriveConstants.kTeleDriveMaxAngularSpeedDegreesPerSecond;
-        turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
-        turningSpeed = 0;
+        double turningSpeed = Math.abs(controller.getRightX()) > OIConstants.kDeadband ? controller.getRightX() : 0.0; 
+        turningSpeed = turningSpeed * DriveConstants.kTeleDriveMaxAngularSpeedDegreesPerSecond;
+        Crashboard.toDashboard("kTeleDriveMaxAngularSpeedDegreesPerSecond", DriveConstants.kTeleDriveMaxAngularSpeedDegreesPerSecond, "navx");
+        //turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
+        //turningSpeed = 0;
         System.out.println("xSpeed: " + xSpeed + " ySpeed: " + ySpeed + " turningSpeed: " + turningSpeed);
 
-
-        ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, Rotation2d.fromDegrees(swerveSubsystem.getHeading()));
+        double turningSpeedRadiansPerSecond = Rotation2d.fromDegrees(turningSpeed).getRadians();
+        Rotation2d currentHeading = Rotation2d.fromDegrees(swerveSubsystem.getHeading());
+        ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeedRadiansPerSecond, currentHeading);
         swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
+        Crashboard.toDashboard("turningSpeedRadiansPerSecond", turningSpeedRadiansPerSecond, "navx");
+        Crashboard.toDashboard("currentHeading", currentHeading.getRadians(), "navx");
         // this.swerveSubsystem.setModuleStates(new SwerveModuleState[] {new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(.5, new Rotation2d( 0.1))});
         //for (int i = 0; i < this.swerveSubsystem.getModuleStates().length; i ++) {
            // System.out.print(this.swerveSubsystem.getModuleStates()[i] + ",  " );
