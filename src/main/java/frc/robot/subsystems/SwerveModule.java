@@ -12,6 +12,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import frc.robot.Constants;
 import frc.robot.Constants.ModuleConstants;
 import frc.robot.helpers.Crashboard;
 
@@ -110,8 +111,8 @@ public class SwerveModule {
         }
         state = SwerveModuleState.optimize(state, getState().angle);
         
-        // Calculate the drive output from the drive PID controller.
-        double driveSpeed = MathUtil.clamp(state.speedMetersPerSecond / 360, -.5 ,.5);
+        // Calculate the drive output from the drive PID controller. ;}
+        double driveSpeed = MathUtil.clamp(state.speedMetersPerSecond  / Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond/* / 360*/, -.5 ,.5);
   
         driveMotor.set(driveSpeed);
         Crashboard.toDashboard("driveSpeed", driveSpeed, "Swerve");

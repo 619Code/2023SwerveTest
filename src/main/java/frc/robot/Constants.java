@@ -39,10 +39,10 @@ public final class Constants {
         //This should be relative to the center, but still check documentation about how the grid is set up for swerve kinetics
             //Ive changed it. It looked wrong and I fixed it based on the coordinate system at https://hhs-team670.github.io/MustangLib/frc/team670/robot/utils/math/Translation2d.html
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-                new Translation2d(-kWheelBase / 2, kTrackWidth / 2), //front left
-                new Translation2d(kWheelBase / 2, kTrackWidth / 2), //front right
-                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2), //back left
-                new Translation2d(kWheelBase / 2, -kTrackWidth / 2)); //backright
+                new Translation2d(kWheelBase / 2, kTrackWidth / 2), //front left
+                new Translation2d(kWheelBase / 2, -kTrackWidth / 2), //front right
+                new Translation2d(-kWheelBase / 2, kTrackWidth / 2), //back left
+                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)); //backright
 
         //We need to update these motors
         // frontLeft Module
@@ -50,7 +50,7 @@ public final class Constants {
         public static final int kFrontLeftDriveMotorPort = 57; //motors updated
         public static final int kFrontLeftTurningMotorPort = 56; //motors updated
         public static final boolean kFrontLeftDriveMotorReversed = true; //re updated //updated
-        public static final boolean kFrontLeftTurningMotorReversed = true; //updated
+        public static final boolean kFrontLeftTurningMotorReversed = true; //updated 
         public static final int kFrontLeftDriveAbsoluteEncoderPort = 30; //updated
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false; //updated
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = -0.134521; //updated, in degrees // they want this to be the negative of the reported values?
@@ -97,8 +97,8 @@ public final class Constants {
         //If you want to ignore these then change the limit on the max speeds manually 
         //these seem to be mostly fine but we may need change some things
         // also we need to change the physical dimensions of our base if we are going to use this 
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 6380.0 / 60.0 * (ModuleConstants.kDriveMotorGearRatio) * ModuleConstants.kWheelDiameterMeters * 360;
-        public static final double kPhysicalMaxAngularSpeedDegreesPerSecond = kPhysicalMaxSpeedMetersPerSecond / Math.hypot(DriveConstants.kTrackWidth / 2.0, DriveConstants.kWheelBase / 2.0 * 3);
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 5676.0 / 60.0 * ModuleConstants.kDriveEncoderRot2Meter;
+        public static final double kPhysicalMaxAngularSpeedDegreesPerSecond = 360; //2 * Math.PI; //kPhysicalMaxSpeedMetersPerSecond / Math.hypot(DriveConstants.kTrackWidth / 2.0, DriveConstants.kWheelBase / 2.0 * 3);
 
         //These are the variables that determine the max speeds of our swerve drive
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;

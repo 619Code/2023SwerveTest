@@ -64,6 +64,10 @@ public class Crashboard {
         return toDashboardGeneric(identifier, value, tab);
     }
 
+    public static GenericEntry toDashboard(String identifier, String value, String tab) {
+        return toDashboardGeneric(identifier, value, tab);
+    }
+
 
     public static double clamp(double in, double min, double max) {
         if (in < min)
