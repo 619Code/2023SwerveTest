@@ -58,11 +58,12 @@ public class SwerveCommand extends CommandBase {
         System.out.println("xSpeed: " + xSpeed + " ySpeed: " + ySpeed + " turningSpeed: " + turningSpeed);
 
         double turningSpeedRadiansPerSecond = Rotation2d.fromDegrees(turningSpeed).getRadians();
-        Rotation2d currentHeading = Rotation2d.fromDegrees(swerveSubsystem.getHeading());
+        Rotation2d currentHeading = Rotation2d.fromDegrees(-swerveSubsystem.getHeading()); //inverted
         ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeedRadiansPerSecond, currentHeading);
         swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
         Crashboard.toDashboard("turningSpeedRadiansPerSecond", turningSpeedRadiansPerSecond, "navx");
         Crashboard.toDashboard("currentHeading", currentHeading.getRadians(), "navx");
+        //Crashboard.toDashboard("desired states", DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds)[0].toString(), "navx");
         // this.swerveSubsystem.setModuleStates(new SwerveModuleState[] {new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(0.5, new Rotation2d(0.1)), new SwerveModuleState(.5, new Rotation2d( 0.1))});
         //for (int i = 0; i < this.swerveSubsystem.getModuleStates().length; i ++) {
            // System.out.print(this.swerveSubsystem.getModuleStates()[i] + ",  " );
@@ -71,6 +72,19 @@ public class SwerveCommand extends CommandBase {
         // 
         
 
+    }
+
+    
+    public void getAngle()
+    {
+        double angle = Math.atan(controller.getRightY()/controller.getRightX());
+        if(controller.getRightY() > 0)
+        {
+            return angle;
+        }
+        else{
+            return angle + 90;
+        }
     }
 
     @Override
