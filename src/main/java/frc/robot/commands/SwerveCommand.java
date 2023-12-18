@@ -10,6 +10,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.helpers.Crashboard;
@@ -37,10 +39,14 @@ public class SwerveCommand extends CommandBase {
     @Override
     public void execute() {
 
+        //testing
+        Crashboard.toDashboard("updatedControllerAngle", getHeadingFromController(controller), "controllerAngle");
+        Crashboard.toDashboard("x", controller.getRightX(), "controllerAngle");
+        Crashboard.toDashboard("y", controller.getRightY(), "controllerAngle");
         // :3
 
         //
-        System.out.println("ANGLE = " + swerveSubsystem.frontLeft.getAbsoluteEncoderDeg() + ", SPEED = " + FrontLeftTurnSpark.get());
+        //System.out.println("ANGLE = " + swerveSubsystem.frontLeft.getAbsoluteEncoderDeg() + ", SPEED = " + FrontLeftTurnSpark.get());
 
         // \:3
         
@@ -57,9 +63,33 @@ public class SwerveCommand extends CommandBase {
         //turningSpeed = 0;
         System.out.println("xSpeed: " + xSpeed + " ySpeed: " + ySpeed + " turningSpeed: " + turningSpeed);
 
-        double turningSpeedRadiansPerSecond = Rotation2d.fromDegrees(turningSpeed).getRadians();
-        Rotation2d currentHeading = Rotation2d.fromDegrees(-swerveSubsystem.getHeading()); //inverted
+        
+        Rotation2d currentHeading = Rotation2d.fromDegrees(swerveSubsystem.getHeading()); //inverted
+        Rotation2d targetHeading = Rotation2d.fromRadians(getHeadingFromController(controller));
+        double turningSpeedRadiansPerSecond;
+
+        if (RobotContainer.ABSOLUTE_TURNING_MODE) {
+            turningSpeedRadiansPerSecond = 0;
+            double deadzoneRadians = 0.1;
+
+            if (currentHeading.getDegrees() < targetHeading.getDegrees()) turningSpeedRadiansPerSecond = 0.2;
+
+            if (currentHeading.getDegrees() > targetHeading.getDegrees()) turningSpeedRadiansPerSecond = -0.2;
+
+            double offset = currentHeading.getDegrees() - targetHeading.getDegrees();
+
+            if (Math.abs(offset) <= deadzoneRadians) {
+                turningSpeedRadiansPerSecond = 0;
+            }
+
+        } else {
+            turningSpeedRadiansPerSecond = Rotation2d.fromDegrees(turningSpeed).getRadians();
+        }
+
+        
+
         ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeedRadiansPerSecond, currentHeading);
+        
         swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
         Crashboard.toDashboard("turningSpeedRadiansPerSecond", turningSpeedRadiansPerSecond, "navx");
         Crashboard.toDashboard("currentHeading", currentHeading.getRadians(), "navx");
@@ -74,19 +104,6 @@ public class SwerveCommand extends CommandBase {
 
     }
 
-    
-    public void getAngle()
-    {
-        double angle = Math.atan(controller.getRightY()/controller.getRightX());
-        if(controller.getRightY() > 0)
-        {
-            return angle;
-        }
-        else{
-            return angle + 90;
-        }
-    }
-
     @Override
     public void end(boolean interrupted) {
         swerveSubsystem.stopModules();
@@ -95,5 +112,35 @@ public class SwerveCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    private double getHeadingFromController(XboxController c) {
+
+        double deadzone = 0.05;
+
+        double x = c.getRightX();
+        double y = -c.getRightY();
+
+        if (Math.abs(x) < deadzone) {
+            x = 0;
+        }
+        if (Math.abs(y) < deadzone) {
+            y = 0;
+        }
+
+        if (x == 0 && y == 0) return Math.toRadians(swerveSubsystem.getHeading());
+
+        
+        int holder = 1;
+        
+        double angle = -1 * Math.atan(x/y);
+        if (y < 0) {
+            if (x < 0)
+            {
+                holder = -1;
+            }
+            angle -= holder * Math.PI;
+      }
+      return -angle;
     }
 }

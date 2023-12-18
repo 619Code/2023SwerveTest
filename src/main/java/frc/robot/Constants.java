@@ -36,6 +36,15 @@ public final class Constants {
         public static final double kTrackWidth = Units.inchesToMeters(21); 
         public static final double kWheelBase = Units.inchesToMeters(21);
 
+        //PID constants
+        public static final double Ks = 0.10729;
+        public static final double Kv = 0.85456;
+        public static final double Ka = 0.047848;
+
+        public static final double kP = 0.001;
+        public static final double kI = 0;
+        public static final double kD = 0;
+
         //This should be relative to the center, but still check documentation about how the grid is set up for swerve kinetics
             //Ive changed it. It looked wrong and I fixed it based on the coordinate system at https://hhs-team670.github.io/MustangLib/frc/team670/robot/utils/math/Translation2d.html
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
