@@ -41,8 +41,10 @@ public class SwerveCommand extends CommandBase {
 
         //testing
         Crashboard.toDashboard("updatedControllerAngle", getHeadingFromController(controller), "controllerAngle");
-        Crashboard.toDashboard("x", controller.getRightX(), "controllerAngle");
-        Crashboard.toDashboard("y", controller.getRightY(), "controllerAngle");
+        Crashboard.toDashboard("Rightx", controller.getRightX(), "controllerAngle");
+        Crashboard.toDashboard("Righty", controller.getRightY(), "controllerAngle");
+        Crashboard.toDashboard("Leftx", controller.getLeftX(), "controllerAngle");
+        Crashboard.toDashboard("Lefty", controller.getLeftY(), "controllerAngle");
         // :3
 
         //
@@ -62,6 +64,9 @@ public class SwerveCommand extends CommandBase {
         //turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
         //turningSpeed = 0;
         System.out.println("xSpeed: " + xSpeed + " ySpeed: " + ySpeed + " turningSpeed: " + turningSpeed);
+        Crashboard.toDashboard("xSpeed", xSpeed, "Swerve");
+        Crashboard.toDashboard("ySpeed", ySpeed, "Swerve");
+        Crashboard.toDashboard("kTeleDriveMaxSpeedMetersPerSecond", DriveConstants.kTeleDriveMaxSpeedMetersPerSecond, "Swerve");
 
         
         Rotation2d currentHeading = Rotation2d.fromDegrees(swerveSubsystem.getHeading()); //inverted
@@ -89,8 +94,12 @@ public class SwerveCommand extends CommandBase {
         
 
         ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeedRadiansPerSecond, currentHeading);
-        
+
+        Crashboard.toDashboard("Chassisspeed X", chassisSpeeds.vxMetersPerSecond, "Swerve 2");
+        Crashboard.toDashboard("Chassisspeed Y", chassisSpeeds.vyMetersPerSecond, "Swerve 2");
+
         swerveSubsystem.setModuleStates(DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds));
+        
         Crashboard.toDashboard("turningSpeedRadiansPerSecond", turningSpeedRadiansPerSecond, "navx");
         Crashboard.toDashboard("currentHeading", currentHeading.getRadians(), "navx");
         //Crashboard.toDashboard("desired states", DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds)[0].toString(), "navx");
