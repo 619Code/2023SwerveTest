@@ -12,7 +12,7 @@ public class RobotContainer {
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final XboxController driverOne = new XboxController(0);
 
-    public static final boolean ABSOLUTE_TURNING_MODE = true;
+    public static final boolean ABSOLUTE_TURNING_MODE = false;
 
     public RobotContainer() {
         swerveSubsystem.setDefaultCommand(new SwerveCommand(swerveSubsystem, driverOne));

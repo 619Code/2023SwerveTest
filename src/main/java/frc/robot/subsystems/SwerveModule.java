@@ -111,7 +111,7 @@ public class SwerveModule {
 
     public void setDesiredState(SwerveModuleState state) {
 
-        state.speedMetersPerSecond *= state.angle.minus(Rotation2d.fromDegrees(getAbsoluteEncoderDeg())).getCos();
+        //state.speedMetersPerSecond *= state.angle.minus(Rotation2d.fromDegrees(getAbsoluteEncoderDeg())).getCos();
 
         Crashboard.toDashboard("driveVelocity", getDriveVelocity(), this.ModuleName + " Swerve");
         Crashboard.toDashboard("driveposition", this.driveEncoder.getPosition(), this.ModuleName + " Swerve");
@@ -119,7 +119,7 @@ public class SwerveModule {
         double driveOutput = drivePIDController.calculate(driveEncoder.getVelocity(), state.speedMetersPerSecond); // Convert to m/s
         //Crashboard.toDashboard(this.ModuleName + " driveSpeed", driveSpeed, "Swerve");
         
-        final double driveFeedForwardOutput = driveFeedForward.calculate(state.speedMetersPerSecond);
+        //final double driveFeedForwardOutput = driveFeedForward.calculate(state.speedMetersPerSecond);
         
         if (Math.abs(state.speedMetersPerSecond) < 0.001) {
             stop();
@@ -128,9 +128,9 @@ public class SwerveModule {
         state = SwerveModuleState.optimize(state, getState().angle);
         
         // Calculate the drive output from the drive PID controller. ;}
-        double driveSpeed = MathUtil.clamp(state.speedMetersPerSecond  / Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond/* / 360*/, -.5 ,.5);
-  
-        driveMotor.set(driveSpeed);
+        //double driveSpeed = MathUtil.clamp(/*state.speedMetersPerSecond  / Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond*/ /* / 360*/, -.5 ,.5);
+        var driveSpeed = state.speedMetersPerSecond;
+        driveMotor.set(driveSpeed * 0.4);
         Crashboard.toDashboard(this.ModuleName + " driveSpeed", driveSpeed, "Swerve");
         Crashboard.toDashboard(this.ModuleName + " speed in mps", state.speedMetersPerSecond, "Swerve");
         
@@ -151,7 +151,7 @@ public class SwerveModule {
         double outVoltage = driveOutput;// + driveFeedForwardOutput;
         outVoltage = MathUtil.clamp(outVoltage, -4.0 ,4.0);
         Crashboard.toDashboard("drive voltage PID", driveOutput, this.ModuleName + " Swerve");
-        Crashboard.toDashboard("drive voltage ff", driveFeedForwardOutput, this.ModuleName + " Swerve");
+//        Crashboard.toDashboard("drive voltage ff", driveFeedForwardOutput, this.ModuleName + " Swerve");
         Crashboard.toDashboard(" output voltage", outVoltage, this.ModuleName + " Swerve");
         
 

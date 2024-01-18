@@ -51,7 +51,7 @@ public final class Constants {
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2), //front left
                 new Translation2d(kWheelBase / 2, -kTrackWidth / 2), //front right
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2), //back left
-                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)); //backright
+                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)); //back right
 
         //We need to update these motors
         // frontLeft Module
