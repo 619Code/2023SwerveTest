@@ -111,7 +111,9 @@ public class SwerveModule {
 
     public void setDesiredState(SwerveModuleState state) {
 
-        //state.speedMetersPerSecond *= state.angle.minus(Rotation2d.fromDegrees(getAbsoluteEncoderDeg())).getCos();
+        state = SwerveModuleState.optimize(state, getState().angle);
+
+        state.speedMetersPerSecond *= state.angle.minus(Rotation2d.fromDegrees(getAbsoluteEncoderDeg())).getCos();
 
         Crashboard.toDashboard("driveVelocity", getDriveVelocity(), this.ModuleName + " Swerve");
         Crashboard.toDashboard("driveposition", this.driveEncoder.getPosition(), this.ModuleName + " Swerve");
@@ -125,7 +127,7 @@ public class SwerveModule {
             stop();
             return;
         }
-        state = SwerveModuleState.optimize(state, getState().angle);
+        
         
         // Calculate the drive output from the drive PID controller. ;}
         //double driveSpeed = MathUtil.clamp(/*state.speedMetersPerSecond  / Constants.DriveConstants.kTeleDriveMaxSpeedMetersPerSecond*/ /* / 360*/, -.5 ,.5);
